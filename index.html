@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Test Front - End
+    </title>
+    <style>
+        div {
+            border: 2px solid red;
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+
+
+            margin: 10px;
+        }
+
+        #total, .buy {
+            cursor: pointer;
+        }
+
+        .wrapper {
+            width: 380px;
+            height: 250px;
+        }
+
+        span {
+            position: absolute;
+            top: 30%;
+            left: 40%;
+            font-size: 50px;
+        }
+
+        .nomoney {
+            color: red;
+            text-decoration: line-through;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="wrapper">
+
+    <div class="buy">Кола
+        <span class="drink nomoney">
+            2
+        </span>
+    </div>
+
+    <div class="buy">Фанта
+        <span class="drink nomoney">
+            5
+        </span>
+    </div>
+
+    <div class="buy">Спрайт
+        <span class="drink nomoney">
+            4
+        </span>
+    </div>
+
+    <div id="total">
+        Добавить $
+        <span id="add">1</span>
+    </div>
+
+    <div >
+        БАЛАНС
+
+        <span id="balance">0</span>
+    </div>
+
+    </div>
+
+<script>
+
+    let $balance = document.getElementById("balance");
+    let $total = document.getElementById("total");
+    let $buy = document.querySelectorAll(".buy");
+
+    function addCoin() {
+        var count = $balance.innerText;
+        count++;
+        $balance.innerText = count;
+        checkCount();
+        buyBottle();
+    }
+
+    function checkCount() {
+        let $drink = document.querySelectorAll(".drink");
+        $balance = document.getElementById("balance");
+        for (let i = 0; i < $drink.length; i++) {
+            if (+$drink[i].innerText <= +$balance.innerText) {
+                $drink[i].classList.remove("nomoney")
+            }
+        }
+    }
+
+    function buyBottle() {
+        let $drink = document.querySelectorAll(".drink");
+        for (let i = 0; i < $drink.length; i++) {
+        }
+    }
+
+    function addHidden() {
+        let $drink = document.querySelectorAll(".drink");
+        $balance = document.getElementById("balance");
+        for (let y = 0; y < $drink.length; y++) {
+            if (+$drink[y].innerText > +$balance.innerText) {
+                $drink[y].classList.add("nomoney")
+            }
+        }
+    }
+
+    $total.addEventListener("click", addCoin);
+
+    for (let i = 0; i < $buy.length; i++){
+        let $drink = document.querySelectorAll(".drink");
+        $buy[i].addEventListener("click", function () {
+
+            if (+$drink[i].innerText <= +$balance.innerText) {
+                $buy[i].addEventListener("click", buyBottle);
+                $balance.innerText = $balance.innerText - $drink[i].innerText;
+                addHidden()
+            }
+        })
+    }
+
+    console.log("CREATED BY CHEREMIN P.V.")
+</script>
+</body>
+</html>
